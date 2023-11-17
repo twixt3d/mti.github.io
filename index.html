@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.T.I  | Mbezi Theory Inc.</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Include Three.js -->
+    <script src="https://threejs.org/build/three.min.js"></script>
+
+    <header>
+        <nav>
+            <div class="container">
+                <h1>M.T.I Athletics Dept.</h1>
+                <ul>
+                    <li><a href="#home" class="nav-link" data-target="home">Home</a></li>
+                    <li><a href="#products" class="nav-link" data-target="products">Products</a></li>
+                    <li><a href="#about" class="nav-link" data-target="about">About Us</a></li>
+                    <li><a href="#contact" class="nav-link" data-target="contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="hero">
+                <h2>Welcome to Mbezi Theory Inc. </h2>
+                <p>Elevate your game with us! Explore a vast selection of gear, apparel, and more. 
+                    Shop now for exclusive deals and be part of our sports community!</p>
+                <a href="#products" class="cta-button">Shop Now</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="products">
+        <div class="container">
+            <h2>Our Products</h2>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>We are a clothing brand dedicated to providing high-quality fashion for all occasions. With a passion for style and elegance, we strive to bring the latest trends to our customers.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or inquiries, please don't hesitate to get in touch with us.</p>
+            <a href="mailto:contact@example.com" class="cta-button">Email Us</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Mbezi Theory Inc. </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a sphere and add it to the scene
+        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        // Set camera position
+        camera.position.z = 15;
+
+        // Animation function
+        const animate = function () {
+            requestAnimationFrame(animate);
+
+            // Rotate the sphere
+            sphere.rotation.x += 0.005;
+            sphere.rotation.y += 0.005;
+
+            renderer.render(scene, camera);
+        };
+
+        // Start animation
+        animate();
+
+        // Smooth scrolling
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', smoothScroll);
+            link.addEventListener('mouseenter', () => {
+                sphere.material.color.set(0x00ff00); // Change color on hover
+            });
+            link.addEventListener('mouseleave', () => {
+                sphere.material.color.set(0xffffff); // Restore original color on hover out
+            });
+        });
+
+        function smoothScroll(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            const offset = targetElement.offsetTop - 70;
+
+            window.scrollTo({
+                top: offset,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
